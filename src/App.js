@@ -8,9 +8,7 @@ import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
-const Grocery = lazy(() => {
-  import("./components/Grocery");
-});
+const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
   //console.log(<Body />)
