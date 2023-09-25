@@ -38,10 +38,10 @@ const Body = () => {
     const json = await data.json();
     //console.log(json);
     setListOfRestaurants(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFilteredRestaurant(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
 
@@ -60,17 +60,19 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="flex">
+        <div className="p-4 m-4">
           <input
             type="text"
-            className="search-box"
+            className="rounded hover:shadow-lg ring-2 hover:ring-4"
             value={searchText}
             onChange={(e) => {
               setSeacrhText(e.target.value);
             }}
           />
+
           <button
+            className="rounded-lg px-3 py-1 bg-green-100 m-3 font-semibold border hover:bg-green-400 hover:ring-4"
             onClick={() => {
               console.log(searchText);
               setFilteredRestaurant(
@@ -83,23 +85,25 @@ const Body = () => {
             Search
           </button>
         </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            /* const filteredList = listOfRestaurants.filter(
+        <div className="p-4 m-4 flex items-center">
+          <button
+            className="rounded-lg px-3 py-1 bg-green-100 m-3 font-semibold border hover:bg-green-400 hover:ring-4"
+            onClick={() => {
+              /* const filteredList = listOfRestaurants.filter(
               res=> res.info.avgRating>4
             );
             setListOfRestaurants(filteredList)*/
-            setFilteredRestaurant(
-              listOfRestaurants.filter((res) => res.info.avgRating > 4.5)
-            );
-            //console.log(listOfRestaurants);
-          }}
-        >
-          Top Rated Restaurants
-        </button>
+              setFilteredRestaurant(
+                listOfRestaurants.filter((res) => res.info.avgRating > 4.5)
+              );
+              //console.log(listOfRestaurants);
+            }}
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap items-center">
         {filteredRestaurant.map((restaurant) => (
           <Link
             key={restaurant.info.id}
