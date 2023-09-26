@@ -1,15 +1,20 @@
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
+import { useState } from "react";
 
 const RestaurantMenu = () => {
   //const [restInfo, setRestInfo] = useState(null);
-
   const { resId } = useParams();
-  console.log(resId);
+  //console.log(resId);
 
   const restInfo = useRestaurantMenu(resId);
-  console.log(restInfo);
+  //console.log(restInfo);
+
+  const dummy="Dummy Data";//for prop drilling concept only
+
+  const [showIndex,setShowIndex]=useState(null);
 
   /*useEffect(() => {
     fetchMenu();
@@ -37,15 +42,35 @@ const RestaurantMenu = () => {
       ?.card;
 
   //console.log(itemCards);
+  //console.log(restInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
+  const categories =
+    restInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      (c) =>
+        c.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
 
+  //console.log("menu");
   return (
-    <div className="menu">
-      <h1>{name}</h1>
-      <p>
+    <div className="text-center">
+      <h1 className="my-5 text-3xl font-serif font-bold">{name}</h1>
+      <p className="font-bold text-xl ">
         {cuisines.join(", ")} - {costForTwoMessage}
       </p>
-
-      <ul>
+      {/** We will build accordion feature for different category of food */}
+      {categories.map((category,index) => (
+        //controlled component
+        <RestaurantCategory
+          key={category?.card.card.title}
+          data={category?.card?.card}
+          showItems={index===showIndex ? true:false}
+          setShowIndex={(index)=>setShowIndex(index)}
+          showIndex={showIndex}
+          currentIndex={index}
+          dummy={dummy}
+        />
+      ))}
+      {/**<ul>
         {itemCards.map((itemCard) => (
           <li key={itemCard.card.info.id}>
             {itemCard.card.info.name} -{" "}
@@ -54,7 +79,7 @@ const RestaurantMenu = () => {
                 itemCard.card.info.defaultPrice / 100)}
           </li>
         ))}
-      </ul>
+        </ul>*/}
     </div>
   );
 };

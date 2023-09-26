@@ -1,18 +1,33 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
+import UserContext from "./utils/UserContext";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { useState,useEffect } from "react";
+
 
 const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
   //console.log(<Body />)
+
+  //Authentication details of useinfo
+  const [userName,setUserName]=useState();
+  //Make an API call to retrieve the info about unsernamr and password
+  useEffect(()=>{
+  const data={
+    name: "Priti Basak",
+  }
+  setUserName(data.name);
+  },[])
+
   return (
+    <UserContext.Provider value={{loggedInUser:userName,setUserName}}>
     <div className="app">
       <Header />
       {/** if path=/   <Body /> */}
@@ -22,6 +37,7 @@ const AppLayout = () => {
       {/** if path=/contact    <Contact />*/}
       <Outlet />
     </div>
+    </UserContext.Provider>
   );
 };
 

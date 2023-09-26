@@ -1,9 +1,11 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withVegLabel } from "./RestaurantCard";
 import resList from "../utils/mockData";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import UserContext from "../utils/UserContext";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
+
 
 const Body = () => {
   //local state variable that is super powerful react variable by react useState hook
@@ -23,7 +25,15 @@ const Body = () => {
     accordingly)*/
   const [searchText, setSeacrhText] = useState("");
 
-  console.log("body rendered");
+  console.log("cardbody");
+  const RestaurantCardOpened = withVegLabel(); //RestaurantCardOpened to be treated as functional component
+  //withOpenedLabel is a higher order component that accepts RestaurantCard component as its parameter/input
+  //But here actually we are not calling the RestaurantCard component as we call it inside return of Body
+  //We are just passing just as a parameter i.e. RestaurantCard as a callback function
+
+  //console.log(RestaurantCardOpened)
+  //console.log("body rendered");
+  console.log(listOfRestaurants);
 
   useEffect(() => {
     fetchData();
@@ -36,12 +46,12 @@ const Body = () => {
     //fetch() always return a promise which is a javascript object
 
     const json = await data.json();
-    //console.log(json);
+    console.log(json);
     setListOfRestaurants(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFilteredRestaurant(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
 
@@ -50,6 +60,7 @@ const Body = () => {
   //return <Shimmer/>
 
   const onlineStatus = useOnlineStatus();
+  const {loggedInUser,setUserName }= useContext(UserContext);
 
   if (onlineStatus === false)
     return (
@@ -102,6 +113,14 @@ const Body = () => {
             Top Rated Restaurants
           </button>
         </div>
+        <div className="p-4 m-4 flex items-center">
+          <label>UserName</label>
+          <input
+            className="rounded hover:shadow-lg ring-2 hover:ring-4 mx-2"
+            value={loggedInUser}
+            onChange={(e) => setUserName(e.target.value)}
+          ></input>
+        </div>
       </div>
       <div className="flex flex-wrap items-center">
         {filteredRestaurant.map((restaurant) => (
@@ -109,7 +128,11 @@ const Body = () => {
             key={restaurant.info.id}
             to={"/restaurants/" + restaurant.info.id}
           >
-            <RestaurantCard resData={restaurant} />
+            {restaurant.info.veg ? (
+              <RestaurantCardOpened resData={restaurant} />
+            ) : (
+              <RestaurantCard resData={restaurant} />
+            )}
           </Link>
         ))}
         {console.log(filteredRestaurant.length)}

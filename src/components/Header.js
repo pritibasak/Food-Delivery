@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { Link } from "react-router-dom";
 //import LOGO_URL from "../utils/constant";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import logo  from '../assets/logo.png'
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
   //let btnName= "Login";
@@ -14,6 +15,8 @@ const Header = () => {
   useEffect(()=>{
     console.log("useEffect")
   })*/
+  const {loggedInUser}=useContext(UserContext);//destructuring
+  console.log(loggedInUser)  
 
   //if my device size is greater than sm(small device width size) then teal else pink
   return (
@@ -37,6 +40,7 @@ const Header = () => {
           >
             {btnName}
           </button>
+          <li className="px-4 font-bold">{loggedInUser}</li>
         </ul>
       </div>
     </div>
