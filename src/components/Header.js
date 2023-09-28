@@ -7,24 +7,13 @@ import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
 
 const Header = () => {
-  //let btnName= "Login";
   const [btnName, setBtnName] = useState("Login");
-
   const onlineStatus = useOnlineStatus();
-  //Added for understanding useEffect hook in detail
-  /*console.log("Header")
-  useEffect(()=>{
-    console.log("useEffect")
-  })*/
-  const { loggedInUser } = useContext(UserContext); //destructuring
-  console.log(loggedInUser);
+
+  const { loggedInUser } = useContext(UserContext); 
 
   const cartItems = useSelector((store) => store.cart.items);
-  //here useSelector is helping the header comonent to subscribe the RTK store by giving partial access to a
-  //part of the store ie items array only
-  //canst carItems will be assigned by returned array items[]
 
-  //if my device size is greater than sm(small device width size) then teal else pink
   return (
     <div className="flex justify-between bg-teal-100 shadow-xl sm:bg-lime-100 lg:bg-pink-100">
       <div className="logo-container">

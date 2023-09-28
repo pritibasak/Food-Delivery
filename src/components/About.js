@@ -12,11 +12,10 @@ class About extends Component {
   }
 componentDidMount(){
 
-    console.log("About component did mount")//when already the component mounted on the dom.
+    console.log("About component did mount")
 }
 componentDidUpdate(){
-  console.log("About class componentdidupdate called") //this methos won't worl for about component because we didn't
-  //use any local state variable and no setState()called from inside componentDidMount
+  console.log("About class componentdidupdate called") 
   }
 
   componentWillUnmount()

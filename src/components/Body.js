@@ -6,33 +6,15 @@ import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
 
-
 const Body = () => {
-  //local state variable that is super powerful react variable by react useState hook
-  //It's an array destructuring where useState() return an array and it gets destructured on two different elements
-  //1st way
   const [listOfRestaurants, setListOfRestaurants] = useState([]); //original list that won't change ever and it will be always used for filtration
   const [filteredRestaurant, setFilteredRestaurant] = useState([]); //filtered list based on condition applied and to render by map
-  //2nd way
-  //const arr=useState(resList);
-  //const [listOfRestaurants, setListOfRestaurants]=arr;
-  //or
-  //const listOfRestaurants=arr[0];
-  //const setListOfRestaurants=arr[1];
 
-  /**whenever state variable gets updated via set...(), react triggers reconciliation cycle
-    (re-renders the component but only made changes to the new portion added/deleted/modified and update the actual DOM 
-    accordingly)*/
   const [searchText, setSeacrhText] = useState("");
 
   console.log("cardbody");
   const RestaurantCardVeg = withVegLabel(RestaurantCard); //RestaurantCardVeg to be treated as functional component
-  //withVegLabel is a higher order component that accepts RestaurantCard component as its parameter/input
-  //But here actually we are not calling the RestaurantCard component as we call it inside return of Body
-  //We are just passing as a parameter i.e. RestaurantCard as a callback function
 
-  //console.log(RestaurantCardOpened)
-  //console.log("body rendered");
   console.log(listOfRestaurants);
 
   useEffect(() => {
@@ -42,8 +24,7 @@ const Body = () => {
   const fetchData = async () => {
     const data = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5981676&lng=88.3639986&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    ); //fetch is a function which is provided by the browser to fetch data from backend API.
-    //fetch() always return a promise which is a javascript object
+    );
 
     const json = await data.json();
     console.log(json);
@@ -55,12 +36,8 @@ const Body = () => {
     );
   };
 
-  //Conditional Rendering of component which will get excuted based on a condition gets evaluated true.
-  //if(listOfRestaurants.length===0)
-  //return <Shimmer/>
-
   const onlineStatus = useOnlineStatus();
-  const {loggedInUser,setUserName }= useContext(UserContext);
+  const { loggedInUser, setUserName } = useContext(UserContext);
 
   if (onlineStatus === false)
     return (
@@ -100,14 +77,9 @@ const Body = () => {
           <button
             className="rounded-lg px-3 py-1 bg-green-100 m-3 font-semibold border hover:bg-green-400 hover:ring-4"
             onClick={() => {
-              /* const filteredList = listOfRestaurants.filter(
-              res=> res.info.avgRating>4
-            );
-            setListOfRestaurants(filteredList)*/
               setFilteredRestaurant(
                 listOfRestaurants.filter((res) => res.info.avgRating > 4.5)
               );
-              //console.log(listOfRestaurants);
             }}
           >
             Top Rated Restaurants

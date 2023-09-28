@@ -8,12 +8,10 @@ const useOnlineStatus = () => {
    useEffect(() => {
     window.addEventListener('online',()=>{  
      setOnlineStatus(true);
-     //console.log("hook"+onlineStatus)
      } )
 
     window.addEventListener('offline',()=>{  
     setOnlineStatus(false);
-    //console.log("hook"+onlineStatus)
         } )
        
   }, []);

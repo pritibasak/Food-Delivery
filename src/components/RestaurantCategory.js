@@ -3,13 +3,9 @@ import ItemList from "./ItemList";
 
 const RestaurantCategory = (props) => {
     const {data,showItems,setShowIndex,showIndex,currentIndex,dummy}=props;
-    //console.log(data)
+
     const {title,itemCards}=data;
-    //console.log('outshow'+showIndex)
-    //console.log("outcurrent"+currentIndex)
-  
-    //const [showItems,setShowItems]=useState(false); //to hide & collapse the food items,initially false to make list collapsed
-    //this power of state variable is taken away for implenting accordion auto collapse feature and hand over power of control to its parent for ifting state up
+   
     const arrow1="⬇️";
     const arrow2="⬆️";
     const handleClick=()=>{
@@ -17,11 +13,8 @@ const RestaurantCategory = (props) => {
         setShowIndex(null);
         else
         {
-        //console.log("current"+currentIndex)//how currentIndex gets updated here once clicked
         setShowIndex(currentIndex)
         }
-        //here for each click when setShowIndex will be called to update the state of the showIndex in Restaurantmenu
-        //the entire RestaurantMenu component will be invoked every time.
      }
 
   return (

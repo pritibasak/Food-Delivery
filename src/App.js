@@ -16,9 +16,7 @@ import appStore from "./utils/appStore";
 const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
-  //Authentication details of useinfo
   const [userName,setUserName]=useState();
-  //Make an API call to retrieve the info about unsernamr and password
   useEffect(()=>{
   const data={
     name: "Priti Basak",
@@ -66,8 +64,7 @@ const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: "/restaurants/:resId", //a dynamic path for restaurant id where the resId to be fetched by useParams hook
-        //this "/restaurants/" to be set from Body using Link to
+        path: "/restaurants/:resId", //dynamic routing
         element: <RestaurantMenu />,
       },
       {
@@ -77,9 +74,7 @@ const appRouter = createBrowserRouter([
     ],
     errorElement: <Error />,
   },
-]); //creating routing configuration and assigned to appRouter
-//this configuration is some information that will define what will happen on some specific route
-
+]); 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(<RouterProvider router={appRouter} />);
