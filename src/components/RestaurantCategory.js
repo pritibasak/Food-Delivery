@@ -13,13 +13,11 @@ const RestaurantCategory = (props) => {
     const arrow1="⬇️";
     const arrow2="⬆️";
     const handleClick=()=>{
-        //console.log('show'+showIndex)
-        
         if(showIndex===currentIndex)
         setShowIndex(null);
         else
         {
-        console.log("current"+currentIndex)//how currentIndex gets updated here once clicked
+        //console.log("current"+currentIndex)//how currentIndex gets updated here once clicked
         setShowIndex(currentIndex)
         }
         //here for each click when setShowIndex will be called to update the state of the showIndex in Restaurantmenu

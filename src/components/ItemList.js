@@ -1,6 +1,24 @@
+import { useDispatch } from "react-redux";
 import { CDN_LINK_MENU } from "../utils/constant";
+import { addItems } from "../utils/cartSlice";
 
 const ItemList = ({ items,dummy}) => {
+   //console.log(items)
+  //console.log(dummy)//to understand props drilling concept 
+  const dispatch=useDispatch();
+  //console.log(dispatch)
+
+  const handleAddItem=(item)=>{ 
+    console.log(item)
+  //Dispatch an action
+    dispatch(addItems(item));
+    /**Behind the scene
+      {
+       payload:item,
+      }
+     */
+  }
+
   return (
     <div>
       {items.map((item) => (
@@ -21,7 +39,8 @@ const ItemList = ({ items,dummy}) => {
           </div>
           <div className="p-4 w-3/12">
             <div className="absolute">
-              <button className="p-2 mx-10 bg-black text-white  shadow-md rounded-lg ring-1">
+              <button className="p-2 mx-10 bg-black text-white  shadow-md rounded-lg ring-1"
+              onClick={()=> handleAddItem(item)}>    {/**we can't write handleAdditem(item) it means we are calling this function by passing item right away */}
                 Add+
               </button>
             </div>

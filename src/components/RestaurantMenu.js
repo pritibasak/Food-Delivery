@@ -70,16 +70,6 @@ const RestaurantMenu = () => {
           dummy={dummy}
         />
       ))}
-      {/**<ul>
-        {itemCards.map((itemCard) => (
-          <li key={itemCard.card.info.id}>
-            {itemCard.card.info.name} -{" "}
-            {"₹" +
-              (itemCard.card.info.price / 100 ||
-                itemCard.card.info.defaultPrice / 100)}
-          </li>
-        ))}
-        </ul>*/}
     </div>
   );
 };
