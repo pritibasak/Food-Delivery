@@ -26,10 +26,10 @@ const Body = () => {
   const [searchText, setSeacrhText] = useState("");
 
   console.log("cardbody");
-  const RestaurantCardOpened = withVegLabel(); //RestaurantCardOpened to be treated as functional component
-  //withOpenedLabel is a higher order component that accepts RestaurantCard component as its parameter/input
+  const RestaurantCardVeg = withVegLabel(RestaurantCard); //RestaurantCardVeg to be treated as functional component
+  //withVegLabel is a higher order component that accepts RestaurantCard component as its parameter/input
   //But here actually we are not calling the RestaurantCard component as we call it inside return of Body
-  //We are just passing just as a parameter i.e. RestaurantCard as a callback function
+  //We are just passing as a parameter i.e. RestaurantCard as a callback function
 
   //console.log(RestaurantCardOpened)
   //console.log("body rendered");
@@ -48,10 +48,10 @@ const Body = () => {
     const json = await data.json();
     console.log(json);
     setListOfRestaurants(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFilteredRestaurant(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
 
@@ -129,7 +129,7 @@ const Body = () => {
             to={"/restaurants/" + restaurant.info.id}
           >
             {restaurant.info.veg ? (
-              <RestaurantCardOpened resData={restaurant} />
+              <RestaurantCardVeg resData={restaurant} />
             ) : (
               <RestaurantCard resData={restaurant} />
             )}

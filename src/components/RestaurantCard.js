@@ -48,10 +48,13 @@ const RestaurantCard = (props) => {
  * Even we can give any name to const withVegLabel=(RestaurantCard) this RestaurantCard 
  * Even it's not at all needed actually to pass any argument for withVeglabel higher order function as there is no use of passed argument 
  * But to show it as a pure function we can pass a argument which won't be used to be modified rather higher order component will return a new function/funtional component
+ * RestaurantCard is being taken as a parameter but it hasn't been changed while returning 
+ * So withVegLabel is a pure function and higher order function as well
 */
  
-export const withVegLabel=()=>{
+export const withVegLabel=(RestaurantCard)=>{
   //console.log("label1")
+
   return (props)=>{
    // console.log(props)
    return <div>
