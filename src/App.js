@@ -16,8 +16,6 @@ import appStore from "./utils/appStore";
 const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
-  //console.log(<Body />)
-
   //Authentication details of useinfo
   const [userName,setUserName]=useState();
   //Make an API call to retrieve the info about unsernamr and password
@@ -33,11 +31,6 @@ const AppLayout = () => {
     <UserContext.Provider value={{loggedInUser:userName,setUserName}}>
     <div className="app">
       <Header />
-      {/** if path=/   <Body /> */}
-
-      {/** if path=/about  <About />*/}
-
-      {/** if path=/contact    <Contact />*/}
       <Outlet />
     </div>
     </UserContext.Provider>
@@ -55,17 +48,14 @@ const appRouter = createBrowserRouter([
       {
         path: "/",
         element: <Body />,
-        //errorElement: <Error />,
       },
       {
         path: "/about",
         element: <About />,
-        //errorElement: <Error />,
       },
       {
         path: "/contact",
         element: <Contact />,
-        //errorElement: <Error />,
       },
       {
         path: "/grocery",
@@ -74,7 +64,6 @@ const appRouter = createBrowserRouter([
             <Grocery />
           </Suspense>
         ),
-        //errorElement: <Error />,
       },
       {
         path: "/restaurants/:resId", //a dynamic path for restaurant id where the resId to be fetched by useParams hook
@@ -84,7 +73,6 @@ const appRouter = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
-        //errorElement: <Error />,
       },
     ],
     errorElement: <Error />,
