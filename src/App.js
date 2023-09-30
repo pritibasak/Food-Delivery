@@ -5,7 +5,7 @@ import Body from "./components/Body";
 import Contact from "./components/Contact";
 import Cart from "./components/Cart";
 import Error from "./components/Error";
-import UserContext from "./utils/UserContext";
+import { UserProvider } from "./utils/UserContext";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { useState,useEffect } from "react";
@@ -15,22 +15,17 @@ import appStore from "./utils/appStore";
 //const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
-  /*const [userName,setUserName]=useState();
-  useEffect(()=>{
-  const data={
-    name: "Priti Basak",
-  }
-  setUserName(data.name);
-  },[])*/
 
   return (
     <Provider store={appStore}>
-   {/**  <UserContext.Provider value={{loggedInUser:userName,setUserName}}>*/}
-    <div className="app">
+    {/**<UserContext.Provider value={{restaurantName:restaurantName,setRestaurantName}}>*/}
+      <UserProvider>
+      <div className="app">
       <Header />
       <Outlet />
-    </div>
-   {/** </Provider> </UserContext.Provider>*/}
+      </div>
+      </UserProvider>
+   {/**</UserContext.Provider>*/}
     </Provider>
   );
 };

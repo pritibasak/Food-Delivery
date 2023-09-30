@@ -5,8 +5,9 @@ const RestaurantCard = (props) => {
 
   const { cloudinaryImageId, name, cuisines, avgRating, costForTwo } =
     resData?.info;
+  
   const { deliveryTime } = resData?.info?.sla;
-
+  
   return (
     <div className="group m-5 p-4 w-[250px] h-[450px] bg-slate-200 rounded-lg shadow-lg hover:border border-solid border-slate-600 hover:cursor-pointer hover:ring-[3px]
      ring-offset-stone-400 hover:h-[420px] hover:shadow-slate-900">
@@ -25,8 +26,6 @@ const RestaurantCard = (props) => {
   );
 };
 
-
- 
 export const withVegLabel=(RestaurantCard)=>{
   return (props)=>{
    return <div>

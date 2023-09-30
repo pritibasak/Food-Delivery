@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-
+  
   const restInfo = useRestaurantMenu(resId);
   //console.log(resId);
 
@@ -49,7 +49,6 @@ const RestaurantMenu = () => {
           setShowIndex={(index)=>setShowIndex(index)}
           showIndex={showIndex}
           currentIndex={index}
-          name={name}
         />
       ))}
     </div>

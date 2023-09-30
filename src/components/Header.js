@@ -18,7 +18,7 @@ const Header = () => {
       <Link to="/">  <img className="w-72" src={logo} /> </Link>
       </div>
       <div className="flex items-center">
-        <ul className="flex p-4 m-4">
+        <ul className="flex p-4 m-4 items-center">
         { /**  <li className="px-4">Online Status: {onlineStatus ? "✅" : "🔴"}</li>*/}
           <li className="px-4 font-semibold">
             <Link to="/">Home</Link>
@@ -27,7 +27,7 @@ const Header = () => {
             <Link to="/contact">Contact Us</Link>
           </li>
           <li className="px-7 mr-4 font-bold text-xl flex-wrap">
-            <Link to="/cart"><img className="w-12 h-12" src={cartlogo}/>{totalItems}</Link>
+          <Link to="/cart"><div className="relative"><img className="w-12 h-12" src={cartlogo}/><span className="absolute top-[-10px] right-0">{totalItems}</span></div></Link>
           </li>
           <button
             className="login font-semibold"

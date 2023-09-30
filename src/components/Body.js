@@ -1,7 +1,6 @@
 import RestaurantCard, { withVegLabel } from "./RestaurantCard";
 import resList from "../utils/mockData";
-import { useState, useEffect, useContext } from "react";
-import UserContext from "../utils/UserContext";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -13,7 +12,7 @@ const Body = () => {
 
   const [searchText, setSeacrhText] = useState("");
 
-  console.log(listOfRestaurants);
+  //console.log(listOfRestaurants);
   const RestaurantCardVeg = withVegLabel(RestaurantCard); //RestaurantCardVeg to be treated as functional component
 
   useEffect(() => {
@@ -26,7 +25,7 @@ const Body = () => {
     );
 
     const json = await data.json();
-    console.log(json);
+    //console.log(json);
     setListOfRestaurants(
       json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
@@ -40,7 +39,6 @@ const Body = () => {
 
   const onlineStatus = useOnlineStatus();
   //const { loggedInUser, setUserName } = useContext(UserContext);
-
   if (onlineStatus === false)
     return (
       <h1>Looks like you are offline!!Please check your internet connection</h1>
@@ -111,7 +109,7 @@ const Body = () => {
             Pure Veg
           </button>
           <button
-            className="rounded-lg px-3 py-1 bg-green-100 m-3 font-semibold border hover:bg-green-400 hover:ring-4"
+            className="rounded-lg px-3 py-2 text-sm bg-green-100 m-3 font-semibold border hover:bg-green-400 hover:ring-4"
             onClick={() => {
               setFilteredRestaurant(
                 listOfRestaurants.filter(
@@ -120,7 +118,7 @@ const Body = () => {
               );
             }}
           >
-            Fast Delivery
+            Delivery by 30 mins
           </button>
           <button
             className="rounded-lg px-3 py-1 bg-green-100 m-3 font-semibold border hover:bg-green-400 hover:ring-4"

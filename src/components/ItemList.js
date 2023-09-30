@@ -1,15 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import { CDN_LINK_MENU } from "../utils/constant";
-import { addItems, removeItems } from "../utils/cartSlice";
-import { useState } from "react";
-import Cart from "./Cart";
+import { addItems, clearCart, removeItems } from "../utils/cartSlice";
+import { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
+import UserContext from "../utils/UserContext";
 
 const ItemList = ({ items, type, name }) => {
- // console.log(name)
   const [addRemove, setAddRemove] = useState(new Set());
+  const { resId } = useParams();
+  const userContext=useContext(UserContext);
 
   const dispatch = useDispatch();
-
   const cartItems = useSelector((store) => store.cart.items);
   console.log(cartItems);
   //cartItems={id:{items:"food card",count:count},id:{items:"food card",count:count}}
@@ -20,16 +21,25 @@ const ItemList = ({ items, type, name }) => {
     else obj[element] = cartItems[element].count;
   });
   console.log(Object.keys(obj).length);
-  const totalPrice = Object.keys(cartItems).reduce(
+  /*const totalPrice = Object.keys(cartItems).reduce(
     (total, currentPrice) => total + (cartItems[currentPrice].price*cartItems[currentPrice].count),
     0
-  );
+  );*/
   
   const handleAddItem = (item, index) => {
+    if(resId!==userContext.restaurantId && userContext.restaurantId!=="")
+    {
+     //modal to be added here for replacing existing items in cart with yes/no button
+      userContext.setRestaurantId(resId);
+      dispatch(clearCart());
+    }
+    else{
+    userContext.setRestaurantId(resId);
     dispatch(addItems(item));
     let set = new Set([...addRemove]); //set constructor takes an array as argument and considers only unique in case of repetition
     set.add(index);
     setAddRemove(set);
+    }
   };
   const handleRemoveItem = (item, index) => {
     dispatch(removeItems(item));
@@ -41,7 +51,6 @@ const ItemList = ({ items, type, name }) => {
 
   return (
     <div>
-    
       { items.map((item, index) => 
          ( <div
           className="p-2 m-2  border-blue-100 border-b-2 text-left flex justify-between"
