@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/foodlogo.png";
+import cartlogo from "../assets/cartlogo.png";
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
 
@@ -14,7 +15,7 @@ const Header = () => {
   return (
     <div className="flex justify-between bg-teal-100 shadow-xl sm:bg-lime-100 lg:bg-pink-100">
       <div className="logo-container">
-        <img className="w-72" src={logo} />
+      <Link to="/">  <img className="w-72" src={logo} /> </Link>
       </div>
       <div className="flex items-center">
         <ul className="flex p-4 m-4">
@@ -25,8 +26,8 @@ const Header = () => {
           <li className="px-4 font-semibold">
             <Link to="/contact">Contact Us</Link>
           </li>
-          <li className="px-4 font-bold text-xl ">
-            <Link to="/cart">Cart( {totalItems} items)</Link>
+          <li className="px-7 mr-4 font-bold text-xl flex-wrap">
+            <Link to="/cart"><img className="w-12 h-12" src={cartlogo}/>{totalItems}</Link>
           </li>
           <button
             className="login font-semibold"

@@ -13,7 +13,7 @@ const Body = () => {
 
   const [searchText, setSeacrhText] = useState("");
 
-  console.log("body");
+  console.log(listOfRestaurants);
   const RestaurantCardVeg = withVegLabel(RestaurantCard); //RestaurantCardVeg to be treated as functional component
 
   useEffect(() => {
@@ -28,15 +28,14 @@ const Body = () => {
     const json = await data.json();
     console.log(json);
     setListOfRestaurants(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFilteredRestaurant(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setSortedRestaurant(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
-   
   };
 
   const onlineStatus = useOnlineStatus();
@@ -52,18 +51,19 @@ const Body = () => {
   ) : (
     <div className="body">
       <div className="flex">
-        <div className="p-4 m-4">
+        <div className="p-4 m-4 flex">
           <input
             type="text"
-            className="rounded hover:shadow-lg ring-2 hover:ring-4"
+            className="hover:shadow-lg ring-2 m-3 hover:ring-4 placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md px-7 pl-1 pr-10  text-sm shadow-lg focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 "
+            placeholder="Search for restaurant or cuisines..."
             value={searchText}
             onChange={(e) => {
               setSeacrhText(e.target.value);
               setFilteredRestaurant(
                 listOfRestaurants.filter((restaurant) =>
-                  restaurant.info.name
+                  (restaurant.info.name
                     .toLowerCase()
-                    .includes(e.target.value.toLowerCase())
+                    .includes(e.target.value.toLowerCase()))
                 )
               );
             }}
@@ -85,7 +85,7 @@ const Body = () => {
             Search
           </button>
         </div>
-        <div className="p-4 m-0 flex items-center">
+        <div className="p-0 m-0 flex items-center">
           <button
             className="rounded-lg px-3 py-1 bg-green-100 m-3 font-semibold border hover:bg-green-400 hover:ring-4"
             onClick={() => {
@@ -125,12 +125,14 @@ const Body = () => {
           <button
             className="rounded-lg px-3 py-1 bg-green-100 m-3 font-semibold border hover:bg-green-400 hover:ring-4"
             onClick={() => {
-              setSortedRestaurant([...listOfRestaurants]);//why from this line functional component not getting reinvoked
-              setFilteredRestaurant(sortedRestaurant.sort((restaurant1,restaurant2) => {
-                   let price1=restaurant1.info?.costForTwo.match(/(\d+)/);
-                   let price2=restaurant2.info?.costForTwo.match(/(\d+)/);
-                   return price1[0]-price2[0];
-                }));
+              setSortedRestaurant([...listOfRestaurants]); //why from this line functional component not getting reinvoked
+              setFilteredRestaurant(
+                sortedRestaurant.sort((restaurant1, restaurant2) => {
+                  let price1 = restaurant1.info?.costForTwo.match(/(\d+)/);
+                  let price2 = restaurant2.info?.costForTwo.match(/(\d+)/);
+                  return price1[0] - price2[0];
+                })
+              );
             }}
           >
             Price Low to High⬆️
@@ -138,12 +140,14 @@ const Body = () => {
           <button
             className="rounded-lg px-3 py-1 bg-green-100 m-3 font-semibold border hover:bg-green-400 hover:ring-4"
             onClick={() => {
-              setSortedRestaurant([...listOfRestaurants]);//why from this line functional component not getting reinvoked
-              setFilteredRestaurant(sortedRestaurant.sort((restaurant1,restaurant2) => {
-                   let price1=restaurant1.info?.costForTwo.match(/(\d+)/);
-                   let price2=restaurant2.info?.costForTwo.match(/(\d+)/);
-                   return price2[0]-price1[0];
-                }));
+              setSortedRestaurant([...listOfRestaurants]); //why from this line functional component not getting reinvoked
+              setFilteredRestaurant(
+                sortedRestaurant.sort((restaurant1, restaurant2) => {
+                  let price1 = restaurant1.info?.costForTwo.match(/(\d+)/);
+                  let price2 = restaurant2.info?.costForTwo.match(/(\d+)/);
+                  return price2[0] - price1[0];
+                })
+              );
             }}
           >
             Price High to Low⬇️
@@ -151,13 +155,27 @@ const Body = () => {
           <button
             className="rounded-lg px-3 py-1 bg-green-100 m-3 font-semibold border hover:bg-green-400 hover:ring-4"
             onClick={() => {
-              setSortedRestaurant([...listOfRestaurants]);//why from this line functional component not getting reinvoked
-              setFilteredRestaurant(sortedRestaurant.sort((restaurant1,restaurant2) => {
-                   return restaurant2.info?.avgRating-restaurant1.info?.avgRating;
-                }));
+              setSortedRestaurant([...listOfRestaurants]); //why from this line functional component not getting reinvoked
+              setFilteredRestaurant(
+                sortedRestaurant.sort((restaurant1, restaurant2) => {
+                  return (
+                    restaurant2.info?.avgRating - restaurant1.info?.avgRating
+                  );
+                })
+              );
             }}
           >
             Sort By Rating
+          </button>
+          <button
+            className="rounded-lg px-3 py-1 bg-green-100 m-3 font-semibold border hover:bg-green-400 hover:ring-4"
+            onClick={() => {
+              setFilteredRestaurant(
+                listOfRestaurants.filter((restaurant) => restaurant)
+              );
+            }}
+          >
+            Default
           </button>
         </div>
       </div>
@@ -174,7 +192,6 @@ const Body = () => {
             )}
           </Link>
         ))}
-     
       </div>
     </div>
   );

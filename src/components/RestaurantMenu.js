@@ -14,8 +14,9 @@ const RestaurantMenu = () => {
 
   if (restInfo === null) return <Shimmer />;
 
-  const { name, cuisines, costForTwoMessage } =
+  const { name, cuisines, costForTwoMessage,avgRating } =
     restInfo?.cards[0]?.card?.card?.info;
+  const {deliveryTime}= restInfo?.cards[0]?.card?.card?.info?.sla;
 
   const { itemCards } =
     restInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
@@ -31,9 +32,13 @@ const RestaurantMenu = () => {
   return (
     <div className="text-center">
       <h1 className="my-5 text-3xl font-serif font-bold">{name}</h1>
+      <div className="flex-wrap mx-30 items-center font-serif mx-5">
+      <div className="flex-wrap items-center"> <h6>Delivery by: {deliveryTime+" "}mins</h6> <h6>🌟{avgRating}</h6></div>
+      
       <p className="font-bold text-xl ">
         {cuisines.join(", ")} - {costForTwoMessage}
       </p>
+      </div>
       {/** We will build accordion feature for different category of food */}
       {categories.map((category,index) => (
         //controlled component
