@@ -8,9 +8,7 @@ const RestaurantMenu = () => {
   const { resId } = useParams();
 
   const restInfo = useRestaurantMenu(resId);
-  //console.log(restInfo);
-
-  const dummy="Dummy Data";//for prop drilling concept only
+  //console.log(resId);
 
   const [showIndex,setShowIndex]=useState(null);
 
@@ -29,7 +27,7 @@ const RestaurantMenu = () => {
         c.card?.card?.["@type"] ===
         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
-
+ console.log(categories);
   return (
     <div className="text-center">
       <h1 className="my-5 text-3xl font-serif font-bold">{name}</h1>
@@ -46,7 +44,7 @@ const RestaurantMenu = () => {
           setShowIndex={(index)=>setShowIndex(index)}
           showIndex={showIndex}
           currentIndex={index}
-          dummy={dummy}
+          name={name}
         />
       ))}
     </div>

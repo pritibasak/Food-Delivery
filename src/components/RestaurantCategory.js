@@ -2,7 +2,7 @@ import { useState } from "react";
 import ItemList from "./ItemList";
 
 const RestaurantCategory = (props) => {
-    const {data,showItems,setShowIndex,showIndex,currentIndex,dummy}=props;
+    const {data,showItems,setShowIndex,showIndex,currentIndex,name}=props;
 
     const {title,itemCards}=data;
    
@@ -23,7 +23,7 @@ const RestaurantCategory = (props) => {
       <span className="font-bold font-sans text-lg">{title} ({itemCards.length})</span>
       <span>{showItems ? arrow2 : arrow1}</span>
       </div>
-      {showItems && <ItemList items={itemCards} dummy={dummy} />}
+      {showItems && <ItemList items={itemCards} name={name}/>}
     </div>
   );
   }
