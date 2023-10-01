@@ -20,11 +20,12 @@ const ItemList = ({ items, type, name }) => {
     if (obj[element]) obj[element] += 1;
     else obj[element] = cartItems[element].count;
   });
-  console.log(Object.keys(obj).length);
-  /*const totalPrice = Object.keys(cartItems).reduce(
+  // console.log(Object.keys(obj).length);
+  console.log(obj);
+  const totalPrice = Object.keys(cartItems).reduce(
     (total, currentPrice) => total + (cartItems[currentPrice].price*cartItems[currentPrice].count),
     0
-  );*/
+  );
   
   const handleAddItem = (item, index) => {
     if(resId!==userContext.restaurantId && userContext.restaurantId!=="")
@@ -53,7 +54,7 @@ const ItemList = ({ items, type, name }) => {
     <div>
       { items.map((item, index) => 
          ( <div
-          className="p-2 m-2  border-blue-100 border-b-2 text-left flex justify-between"
+          className={`p-2 m-2  border-blue-100  border-b-2 text-left flex justify-between`}
           key={item?.card?.info?.id}
         >
           <div className="w-9/12">
