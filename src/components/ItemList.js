@@ -9,13 +9,14 @@ const ItemList = ({ items, type, name }) => {
   const [addRemove, setAddRemove] = useState(new Set());
   const { resId } = useParams();
   const userContext=useContext(UserContext);
-
+  //console.log(userContext.restaurantId)
   const dispatch = useDispatch();
   const cartItems = useSelector((store) => store.cart.items);
   console.log(cartItems);
   //cartItems={id:{items:"food card",count:count},id:{items:"food card",count:count}}
   //{33386464: {…}, 121794072: {…}}
   const obj = {};
+  //console.log("hi")
   Object.keys(cartItems).forEach((element) => {
     if (obj[element]) obj[element] += 1;
     else obj[element] = cartItems[element].count;
@@ -28,7 +29,7 @@ const ItemList = ({ items, type, name }) => {
   );
   
   const handleAddItem = (item, index) => {
-    if(resId!==userContext.restaurantId && userContext.restaurantId!=="")
+    if(resId!==userContext.restaurantId && userContext.restaurantId!=="" && type!=="cart")
     {
      //modal to be added here for replacing existing items in cart with yes/no button
       userContext.setRestaurantId(resId);
@@ -54,7 +55,7 @@ const ItemList = ({ items, type, name }) => {
     <div>
       { items.map((item, index) => 
          ( <div
-          className={`p-2 m-2  border-blue-100  border-b-2 text-left flex justify-between`}
+          className={`p-2 m-2 ${totalPrice!==0}? border-blue-100 : border-white-500  border-b-2 text-left flex justify-between`}
           key={item?.card?.info?.id}
         >
           <div className="w-9/12">
@@ -92,7 +93,7 @@ const ItemList = ({ items, type, name }) => {
           <div className="p-4 w-3/12">
             <div className="absolute">
               <div id={item.card.info.id} className="flex justify-between">
-                {(addRemove?.has(index) || type) &&
+                {(addRemove?.has(index) || resId===userContext.restaurantId || type) &&
                   obj[item?.card?.info?.id] > 0 && (
                     <button
                       onClick={() => handleRemoveItem(item, index)}
@@ -102,16 +103,28 @@ const ItemList = ({ items, type, name }) => {
                     </button>
                   )}
                 {(addRemove?.has(index) || type) &&
-                obj[item?.card?.info?.id] !== 0 ? (
-                  <button
+                obj[item?.card?.info?.id] !== 0 ? 
+                <button
                     disabled
                     className="group py-2 px-5 mx-8 w-20 bg-black text-white shadow-md rounded-lg ring-1
                     hover:bg-slate-900 hover: border-cyan-100 hover:border-2"
                   >
                     {obj[item?.card?.info?.id]}
                   </button>
-                ) : (
-                  (type && obj[item?.card?.info?.id] > 0 && (
+                  
+                  : (
+                  (!type  && (
+                    (obj[item?.card?.info?.id]>0 && resId===userContext.restaurantId &&
+                    <button
+                      onClick={() => handleAddItem(item, index)}
+                      className="group py-2 px-5 mx-8 w-20 bg-black text-white  shadow-md rounded-lg ring-1
+                    hover:bg-slate-900 hover: border-cyan-100 hover:border-2"
+                    >
+                      {obj[item?.card?.info?.id]}
+
+                    </button>
+                    ) ||
+                    (
                     <button
                       onClick={() => handleAddItem(item, index)}
                       className="group py-2 px-5 mx-8 w-20 bg-black text-white  shadow-md rounded-lg ring-1
@@ -119,18 +132,11 @@ const ItemList = ({ items, type, name }) => {
                     >
                       Add
                     </button>
-                  )) ||
-                  (!type && (
-                    <button
-                      onClick={() => handleAddItem(item, index)}
-                      className="group py-2 px-5 mx-8 w-20 bg-black text-white  shadow-md rounded-lg ring-1
-                    hover:bg-slate-900 hover: border-cyan-100 hover:border-2"
-                    >
-                      Add
-                    </button>
+                    )
                   ))
                 )}
-                {(addRemove?.has(index) || type) &&
+                
+                {(addRemove?.has(index) || type || resId===userContext.restaurantId) &&
                   obj[item?.card?.info?.id] > 0 && (
                     <button
                       className="text-white mx-24 my-1.5 text-lg font-extrabold absolute cursor-pointer group"
@@ -160,9 +166,9 @@ const ItemList = ({ items, type, name }) => {
             <h5 className="font-bold text-lg mx-7 px-5">
               {type &&
                 obj[item?.card?.info?.id] > 0 &&
-                obj[item?.card?.info?.id] *
+                Math.ceil(obj[item?.card?.info?.id] *
                   (item.card.info.price / 100 ||
-                    item.card.info.defaultPrice / 100)}
+                    item.card.info.defaultPrice / 100))}
             </h5>
           </div>
         </div>

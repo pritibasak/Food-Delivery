@@ -27,13 +27,13 @@ const Body = () => {
     const json = await data.json();
     //console.log(json);
     setListOfRestaurants(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFilteredRestaurant(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setSortedRestaurant(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
 
@@ -73,17 +73,17 @@ const Body = () => {
 
           <button
             className="rounded-lg px-3 py-1 bg-green-100 m-3 font-semibold border hover:bg-green-400 hover:ring-4"
-            onClick={() => {
-              console.log(searchText);
+            onClick={(e) => {
+              //console.log(e);
               setFilteredRestaurant(
                 listOfRestaurants.filter((restaurant) =>
                   restaurant.info.name
                     .toLowerCase()
                     .includes(searchText.toLowerCase() ||
-                    restaurant.info.cuisines.join(",")
+                    (searchText && (restaurant.info.cuisines.join(",")
                     .toLowerCase()
-                    .includes(e.target.value.toLowerCase()) 
-                    
+                    .includes( e.target.value.toLowerCase()) 
+                    ))
                     )
                 )
               );
