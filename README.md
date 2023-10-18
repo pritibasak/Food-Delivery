@@ -18,7 +18,7 @@ Tree Shaking - remove unused code
 Different dev and prod bundles
 
 
-# Namaste Food
+# Food delivery 
 /**
 
 Header
@@ -80,51 +80,20 @@ Install @babel/preset-react - to make JSX work in test cases
 Include @babel/preset-react inside my babel config
 npm i -D @testing-library/jest-dom
 
-# Namaste React Top Interview Questions
+#Food Delivery APP
+1.	It is a food delivery app that offers convenient food delivery services. Users can order a wide variety of delicious dishes. 
+2.	Successfully created the application basic structure from the scratch (without create-react-app) and used live API of ‘Swiggy’ to fetch the list of the restaurants and food menu.
+3.	 It consists of the following features:
+•	To search for restaurants by restaurant name & cuisines.
+•	To filter restaurants by rating, pure veg, delivery time. 
+•	To sort restaurants by price (low to high & high to low), rating, default.
+•	To add items in the cart & remove from the cart.
+•	Provides a summary of the items in the cart, including quantities, prices of individual items & total price.
+•	User can add only one restaurant food items in the cart, if the cart already holds one restaurant items so it will be replaced by the new restaurant items chosen.
+4.	Tech stack used:
+•	React, React hooks, Custom hooks, React Router DOM, React context, React Redux and Redux Toolkit to build UI layer & maintain data layer.
+•	Tailwind CSS: Used for styling the components and UI.
+•	Parcel: Used for bundling and building the React app.
+•	Jest: To write test cases for unit testing and integration testing.
 
-These are the top react interview Questions🤞 
 
-0. What is Lifting State Up in React?
-
-1. What is React context?
-
-2. What are different ways to add CSS in your app?
-
-3. What is Hot Module Replacement?
-
-4. What is the use of Parcel, Vite, Webpack?
-
-5. How does create-react-app work?
-
-6. What is Tree Shaking?
-
-7. Difference b/w dependency and devDependency
-
-8. What is npx and npm?
-
-9. Difference b/w package .json and package-lock .json
-
-10. Difference between console .log(<HeaderComponent/>) and
-
-console .log(HeaderComponent());
-
-11. What is React.Fragment?
-
-12. What is the purpose of dependency array in useEffect? What is the difference when it is used and when it is not used?
-
-13. What if 2 components are given will the state change in one component will effect the other component’s state (child)?
-
-14. What is the use of return in useEffect ?
-
-15. Difference b/w client-side routing and server-side routing?
-
-16. Explain the concept of code splitting and its benefits in React.
-
-17. How does React handle routing and navigation?
-
-18. What are higher-order components (HOC) in React?
-
-19. What are controlled and uncontrolled components?
-
-20. Explain the concept of reconciliation in React.
-https://github.com/acdlite/react-fiber-architecture
